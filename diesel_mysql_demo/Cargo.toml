@@ -1,0 +1,35 @@
+[package]
+name = "diesel_mysql_demo"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+diesel = { version = "2.2.0", features = ["mysql"] }
+# build libmysqlclient as part of the build process
+# uncomment this line if you run into setup issues
+mysqlclient-sys = { version = "0.4", features = ["bundled"] }
+dotenvy = "0.15"
+
+[[bin]]
+name = "select_posts"
+doc = false
+
+[[bin]]
+name = "insert_post"
+doc = false
+
+[[bin]]
+name = "update_post"
+doc = false
+
+[[bin]]
+name = "get_post"
+doc = false
+
+[[bin]]
+name = "delete_post"
+doc = false
+
+[lib]
+doc = false
+
