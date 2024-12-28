@@ -6,4 +6,4 @@ file = "src/schema.rs"
 custom_type_derives = ["diesel::query_builder::QueryId", "Clone"]
 
 [migrations_directory]
-dir = "/data/nvme1n1p1/zhangningboo/workspace/web/diesel_mysql_demo/migrations"
+dir = "/workspace/web/diesel_learn/rust-diesel/diesel_mysql_demo/migrations"

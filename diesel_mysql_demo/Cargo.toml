@@ -4,32 +4,36 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-diesel = { version = "2.2.0", features = ["mysql"] }
-# build libmysqlclient as part of the build process
-# uncomment this line if you run into setup issues
-mysqlclient-sys = { version = "0.4", features = ["bundled"] }
-dotenvy = "0.15"
+diesel = { version = "2.2.6", features = ["mysql"] }  # 引用mysql
+dotenvy = "0.15.7"
+mysqlclient-sys = "0.4.2"
+
 
 [[bin]]
-name = "select_posts"
+name = "query_posts"
+path = "src/bin/query_posts.rs"
 doc = false
+
 
 [[bin]]
-name = "insert_post"
+name = "insert_posts"
+path = "src/bin/insert_posts.rs"
 doc = false
+
 
 [[bin]]
-name = "update_post"
+name = "update_posts"
+path = "src/bin/update_posts.rs"
 doc = false
+
 
 [[bin]]
-name = "get_post"
+name = "query_by_id"
+path = "src/bin/query_by_id.rs"
 doc = false
+
 
 [[bin]]
-name = "delete_post"
+name = "delete_posts"
+path = "src/bin/delete_posts.rs"
 doc = false
-
-[lib]
-doc = false
-

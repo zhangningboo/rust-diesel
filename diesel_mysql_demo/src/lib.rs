@@ -1,34 +1,27 @@
-pub mod models;
-pub mod schema;
-
 use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
 
+pub mod models;
+pub mod schema;
+
+/// Establishes a database connection using the `DATABASE_URL` environment
+/// variable. The value of this variable should be a valid connection string
+/// for a MySQL database.
+///
+/// Panics if a database connection cannot be established.
 pub fn establish_connection() -> MysqlConnection {
+    // Load environment variables from a `.env` file
     dotenv().ok();
 
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    // Get the database connection string from the environment
+    let database_url = env::var("DATABASE_URL")
+        .expect("DATABASE_URL must be set");
+
+    // Attempt to establish a connection to the database
     MysqlConnection::establish(&database_url)
-        .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
-}
-
-use self::models::{NewPost, Post};
-
-pub fn create_post(conn: &mut MysqlConnection, title: &str, body: &str) -> Post {
-    use crate::schema::posts;
-
-    let new_post = NewPost { title, body };
-
-    conn.transaction(|conn| {
-        diesel::insert_into(posts::table)
-            .values(&new_post)
-            .execute(conn)?;
-
-        posts::table
-            .order(posts::id.desc())
-            .select(Post::as_select())
-            .first(conn)
-    })
-    .expect("Error while saving post")
+        .unwrap_or_else(|_| {
+            // If the connection attempt fails, panic with an error message
+            panic!("Error connecting to {}", database_url)
+        })
 }
